@@ -455,4 +455,38 @@ public abstract class GetterSetterTest {
     }
 }
 
-//==================================
+//===================basic class===============
+
+
+//-------------
+@RunWith(SpringRunner.class)
+public class TYrdEngsAnnulServiceImplTest {
+    @InjectMocks
+    TYrdEngsAnnulServiceImpl impl;
+    @Mock
+    TYrdEngsAnnulModernService tYrdEngsAnnulModernService;
+    @Mock
+    TYrdEngsAnnulLegacyService tYrdEngsAnnulLegacyService;
+    @Mock
+    CommonDataService commonDataService;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void annulEngineModernTest() throws WrkforcScheduleMgmtException, ParseException {
+        ReflectionTestUtils.setField(impl, "annulFlow", "M");
+        when(tYrdEngsAnnulModernService.annulEngine(any())).thenReturn(new AnnulEngineResponse());
+        impl.annulEngine(new AnnulEngineRequest());
+    }
+
+    @Test
+    public void annulEngineLegacyTest() throws WrkforcScheduleMgmtException, ParseException {
+        ReflectionTestUtils.setField(impl, "annulFlow", "L");
+        when(tYrdEngsAnnulLegacyService.annulEngine(any())).thenReturn(new AnnulEngineResponse());
+        impl.annulEngine(new AnnulEngineRequest());
+    }
+//--------
+///////////////
